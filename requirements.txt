@@ -1,0 +1,6 @@
+# CRE Credit Risk — pinned-loose, deliberately boring stack
+requests>=2.31      # EDGAR HTTP pulls (with descriptive User-Agent)
+lxml>=5.0           # fast, tolerant XML parsing of ABS-EE EX-102
+pandas>=2.1         # tidy per-loan dataframe
+matplotlib>=3.8     # a small number of clear charts
+# SQLite ships with the Python standard library (sqlite3) — no dependency needed.
