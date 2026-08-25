@@ -6,9 +6,9 @@ and it's concentrated less by property type than the market narrative would sugg
 Office is the largest dollar exposure in the pool, but proportionally the *healthiest*
 of its major property types.
 
-Full writeup: [`analysis/findings.md`](analysis/findings.md). Interactive version:
-[`app/streamlit_app.py`](app/streamlit_app.py) — run the same segmentation live
-against the sample pool or your own loan tape (see **Interactive app** below).
+**[Try the live app](https://churn-prediction-zpncgbhzk7rhhukn7ousge.streamlit.app/)**
+— run the same segmentation against the sample pool or your own loan tape.
+Full writeup: [`analysis/findings.md`](analysis/findings.md).
 
 ---
 
@@ -71,10 +71,13 @@ driver analysis, and named limitations.
 
 ## Interactive app
 
-The same pro-forma DSCR segmentation, runnable live: pick the sample pool or upload a
-loan tape in the same schema, and get the tier breakdown, DSCR distribution, maturity
-wall chart, a sortable loan-level table, and a downloadable memo (PDF) generated from
+**[Live app](https://churn-prediction-zpncgbhzk7rhhukn7ousge.streamlit.app/)** — the
+same pro-forma DSCR segmentation, runnable live: pick the sample pool or upload a loan
+tape in the same schema, and get the tier breakdown, DSCR distribution, maturity wall
+chart, a sortable loan-level table, and a downloadable memo (PDF) generated from
 whatever data is loaded — not a static writeup.
+
+To run it locally instead:
 
 ```
 streamlit run app/streamlit_app.py
