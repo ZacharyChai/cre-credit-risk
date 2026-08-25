@@ -6,7 +6,9 @@ and it's concentrated less by property type than the market narrative would sugg
 Office is the largest dollar exposure in the pool, but proportionally the *healthiest*
 of its major property types.
 
-Full writeup: [`analysis/findings.md`](analysis/findings.md).
+Full writeup: [`analysis/findings.md`](analysis/findings.md). Interactive version:
+[`app/streamlit_app.py`](app/streamlit_app.py) — run the same segmentation live
+against the sample pool or your own loan tape (see **Interactive app** below).
 
 ---
 
@@ -67,6 +69,21 @@ Low tier.
 See [`analysis/findings.md`](analysis/findings.md) for the full memo — recommendation,
 driver analysis, and named limitations.
 
+## Interactive app
+
+The same pro-forma DSCR segmentation, runnable live: pick the sample pool or upload a
+loan tape in the same schema, and get the tier breakdown, DSCR distribution, maturity
+wall chart, a sortable loan-level table, and a downloadable memo (PDF) generated from
+whatever data is loaded — not a static writeup.
+
+```
+streamlit run app/streamlit_app.py
+```
+
+`app/segmentation.py` ports the tiering logic from `src/segment.sql` into a plain
+`compute_risk_tiers(df)` function, so the same rule drives both the static analysis
+and the live app.
+
 ## Repository structure
 
 ```
@@ -81,6 +98,12 @@ cre-credit-risk/
     rate_gap.py               <- Treasury benchmark + rate-gap calculation
     segment.sql               <- risk segmentation logic
     drivers.py                <- driver analysis + chart generation
+  app/
+    streamlit_app.py          <- interactive app (upload/select, results, export)
+    segmentation.py            <- compute_risk_tiers(df), ported from segment.sql
+    charts.py                  <- Plotly chart builders
+    memo.py                    <- live PDF memo generation
+    data/sample_pool.csv       <- the GS 2017-GS6/GS7 sample pool
   analysis/
     findings.md               <- the writeup
     charts/                   <- exported figures
@@ -94,9 +117,9 @@ cre-credit-risk/
 make all
 ```
 
-Reproduces the full pipeline from a clean clone — fetch, parse, load, benchmark,
-segment, and driver analysis with charts — using a local virtualenv and SQLite. No
-cloud, no external services beyond the public data sources above.
+Reproduces the full analysis pipeline from a clean clone — fetch, parse, load,
+benchmark, segment, and driver analysis with charts — using a local virtualenv and
+SQLite. No cloud, no external services beyond the public data sources above.
 
 ## Limitations
 

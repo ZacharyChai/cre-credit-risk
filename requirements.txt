@@ -4,3 +4,8 @@ lxml>=5.0           # fast, tolerant XML parsing of ABS-EE EX-102
 pandas>=2.1         # tidy per-loan dataframe
 matplotlib>=3.8     # a small number of clear charts
 # SQLite ships with the Python standard library (sqlite3) — no dependency needed.
+
+# Interactive app (app/streamlit_app.py)
+streamlit>=1.35     # the app itself
+plotly>=5.20        # interactive charts
+reportlab>=4.1      # PDF memo export
