@@ -24,6 +24,7 @@ LAYOUT_DEFAULTS = dict(
 
 def tier_bar_chart(summary) -> go.Figure:
     ordered = summary.set_index("risk_tier").reindex(TIER_ORDER).reset_index()
+    max_balance = float((ordered["balance"] / 1e6).max())
     fig = go.Figure(
         go.Bar(
             y=ordered["risk_tier"],
@@ -35,13 +36,17 @@ def tier_bar_chart(summary) -> go.Figure:
                 for b, p in zip(ordered["balance"], ordered["pct_of_pool"])
             ],
             textposition="outside",
+            cliponaxis=False,
             hovertemplate="%{y}: $%{x:,.1f}M<extra></extra>",
         )
     )
     fig.update_layout(
-        **LAYOUT_DEFAULTS,
+        **{**LAYOUT_DEFAULTS, "margin": dict(l=10, r=70, t=50, b=10)},
         title="Pool balance by risk tier",
-        xaxis=dict(title="Balance ($M)", gridcolor=GRIDLINE, zeroline=False),
+        xaxis=dict(
+            title="Balance ($M)", gridcolor=GRIDLINE, zeroline=False,
+            range=[0, max_balance * 1.25],
+        ),
         yaxis=dict(autorange="reversed"),
         height=320,
     )
@@ -60,10 +65,14 @@ def dscr_histogram(scored) -> go.Figure:
     )
     fig.add_vline(
         x=1.0, line_dash="dash", line_color="#898781",
-        annotation_text="1.00x break-even", annotation_position="top",
+        annotation_text="1.00x break-even",
+        annotation_position="top",
+        annotation_yref="paper",
+        annotation_y=1.06,
+        annotation_yanchor="bottom",
     )
     fig.update_layout(
-        **LAYOUT_DEFAULTS,
+        **{**LAYOUT_DEFAULTS, "margin": dict(l=10, r=10, t=68, b=10)},
         title="Pro-forma refinance DSCR distribution",
         xaxis=dict(title="Pro-forma DSCR at estimated takeout rate", gridcolor=GRIDLINE),
         yaxis=dict(title="Loans", gridcolor=GRIDLINE),
@@ -81,6 +90,7 @@ def maturity_wall_chart(scored) -> go.Figure:
     by_q = scored.assign(_q=quarter).groupby("_q")["current_balance"].sum().sort_index()
     total = by_q.sum()
 
+    max_val = float((by_q.values / 1e6).max())
     fig = go.Figure(
         go.Bar(
             x=by_q.index,
@@ -88,6 +98,7 @@ def maturity_wall_chart(scored) -> go.Figure:
             marker_color=SEQ_BLUE,
             text=[f"${v/1e6:,.0f}M ({100*v/total:.0f}%)" for v in by_q.values],
             textposition="outside",
+            cliponaxis=False,
             hovertemplate="%{x}: $%{y:,.1f}M<extra></extra>",
         )
     )
@@ -95,7 +106,10 @@ def maturity_wall_chart(scored) -> go.Figure:
         **LAYOUT_DEFAULTS,
         title="Maturity wall: balance by quarter",
         xaxis=dict(title=""),
-        yaxis=dict(title="Balance ($M)", gridcolor=GRIDLINE, zeroline=False),
+        yaxis=dict(
+            title="Balance ($M)", gridcolor=GRIDLINE, zeroline=False,
+            range=[0, max_val * 1.2],
+        ),
         height=360,
     )
     return fig
