@@ -1,0 +1,73 @@
+name: keep-alive
+
+# Streamlit Community Cloud puts an app to sleep after a stretch with no viewers,
+# and the first person to open it then sees a "Zzzz" page and a wake button.
+# This job opens the app in a headless browser every six hours so that never
+# happens to someone arriving from the README or a resume link. If the app is
+# asleep it presses the wake button and waits for the app to render, so the
+# job doubles as a smoke test: it fails if the app cannot boot.
+
+on:
+  schedule:
+    - cron: "23 */6 * * *"
+  workflow_dispatch:
+
+permissions: {}
+
+concurrency:
+  group: keep-alive
+  cancel-in-progress: false
+
+jobs:
+  visit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install Playwright
+        run: |
+          npm init -y >/dev/null
+          npm install --no-audit --no-fund playwright@1.49.1
+          npx playwright install --with-deps chromium
+
+      - name: Open the app and wait for it to render
+        run: |
+          cat > visit.mjs <<'EOF'
+          import { chromium } from "playwright";
+
+          const url = "https://cre-credit-risk.streamlit.app/";
+          const browser = await chromium.launch();
+          const page = await browser.newPage();
+          try {
+            await page.goto(url, { waitUntil: "domcontentloaded", timeout: 90_000 });
+
+            const wake = page.getByRole("button", { name: /get this app back up/i });
+            if (await wake.isVisible({ timeout: 10_000 }).catch(() => false)) {
+              console.log("app was asleep; pressing the wake button");
+              await wake.click();
+            }
+
+            // The app title comes from st.title("CRE Credit Risk"); look for it in the
+            // page or any frame for up to four minutes (a cold boot can take a while).
+            const deadline = Date.now() + 240_000;
+            let rendered = false;
+            while (!rendered && Date.now() < deadline) {
+              for (const frame of page.frames()) {
+                const hits = await frame.locator("text=CRE Credit Risk").count().catch(() => 0);
+                if (hits > 0) { rendered = true; break; }
+              }
+              if (!rendered) await page.waitForTimeout(5_000);
+            }
+            if (!rendered) throw new Error("app did not render within four minutes");
+
+            // Hold the session open briefly so the visit registers as viewer traffic.
+            await page.waitForTimeout(20_000);
+            console.log("app rendered; visit complete");
+          } finally {
+            await browser.close();
+          }
+          EOF
+          node visit.mjs
