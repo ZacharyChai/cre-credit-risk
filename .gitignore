@@ -31,3 +31,6 @@ analysis/findings.pdf
 # Claude Code local session state (keep launch.json, which is shared config)
 .claude/settings.local.json
 .claude/scheduled_tasks.lock
+
+# Claude Code local settings
+.claude/
