@@ -1,10 +1,10 @@
-# CRE Credit Risk: Loan-Level Distress Analysis of the 2026 Maturity Wall
+# CRE Credit Risk: Loan-Level Distress Analysis of a 2017-Vintage CMBS Pool Maturing in 2027
 
-Segmented a live $1.6B CMBS loan pool by refinance-distress risk ahead of the
-2026-2027 maturity wall. **44.6% of pool balance sits in Elevated or Acute risk** —
-and it's concentrated less by property type than the market narrative would suggest:
-Office is the largest dollar exposure in the pool, but proportionally the *healthiest*
-of its major property types.
+Segmented a live $1.6B CMBS loan pool by refinance-distress risk against its 2027
+maturities, at the tail of the $900B+ CRE maturity wall. **44.6% of pool balance sits
+in Elevated or Acute risk**, and it's concentrated less by property type than the
+market narrative would suggest: Office is the largest dollar exposure in the pool, but
+proportionally the *healthiest* of its major property types.
 
 **[Try the live app](https://cre-credit-risk.streamlit.app/)**
 — run the same segmentation against the sample pool or your own loan tape.

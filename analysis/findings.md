@@ -1,4 +1,4 @@
-# CRE Credit Risk: Loan-Level Distress Analysis of the 2026 Maturity Wall
+# CRE Credit Risk: Loan-Level Distress Analysis of a 2017-Vintage CMBS Pool Maturing in 2027
 
 *GS Mortgage Securities Trust 2017-GS6 and 2017-GS7 — 49 active real-estate loans,
 $1,614.7M, as of the June 2026 servicer reporting period.*
