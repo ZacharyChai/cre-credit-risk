@@ -31,8 +31,10 @@ covering current balance, coupon, maturity, property type and location, NOI, DSC
 LTV, and occupancy for every loan in the trust.
 
 The analysis covers two 2017-vintage conduit deals from the same issuance shelf
-(GS Mortgage Securities Trust 2017-GS6 and 2017-GS7) — 71 loans, 49 of them active
-real estate after excluding defeased and paid-off loans, totaling $1.61B. Parsed
+(GS Mortgage Securities Trust 2017-GS6 and 2017-GS7): 66 loans, 49 of them active real
+estate after excluding 9 defeased and 8 paid-off loans, totaling $1.61B. The filings hold
+71 asset records because 2017-GS7 also lists five property-level records under its two
+multi-property loans. Parsed
 values were cross-checked against each deal's original 2017 term sheet (an independent
 filing) and matched to within 0.04%.
 

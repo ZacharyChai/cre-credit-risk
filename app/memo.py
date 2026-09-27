@@ -49,7 +49,7 @@ def generate_memo_pdf(scored, pool_name: str = "Uploaded pool") -> bytes:
 
     story.append(Paragraph("CRE Credit Risk: Loan-Level Distress Analysis", styles["MemoTitle"]))
     story.append(Paragraph(
-        f"{pool_name} — {len(scored)} active real-estate loans, "
+        f"{pool_name}: {len(scored)} active real-estate loans, "
         f"${total_balance/1e6:,.1f}M.",
         styles["MemoBody"],
     ))
@@ -57,7 +57,7 @@ def generate_memo_pdf(scored, pool_name: str = "Uploaded pool") -> bytes:
     story.append(Paragraph("Where the risk sits", styles["MemoH2"]))
     story.append(Paragraph(
         f"{ea_pct:.1f}% of pool balance (${ea_balance/1e6:,.1f}M) sits in the "
-        "Elevated or Acute risk tier, based on pro-forma refinance DSCR — each "
+        "Elevated or Acute risk tier, based on pro-forma refinance DSCR: each "
         "loan's reported DSCR rescaled to an estimated takeout rate, escalated "
         "for high leverage or Office/Lodging exposure.",
         styles["MemoBody"],
@@ -113,7 +113,7 @@ def generate_memo_pdf(scored, pool_name: str = "Uploaded pool") -> bytes:
         if len(acute) > 15:
             story.append(Spacer(1, 4))
             story.append(Paragraph(
-                f"({len(acute) - 15} additional Acute loans not shown — see the "
+                f"({len(acute) - 15} additional Acute loans not shown; see the "
                 "loan-level table in the app for the full list.)",
                 styles["MemoBody"],
             ))

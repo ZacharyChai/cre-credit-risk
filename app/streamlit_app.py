@@ -1,4 +1,4 @@
-"""CRE Credit Risk — interactive risk segmentation.
+"""CRE Credit Risk: interactive risk segmentation.
 
 Runs the same pro-forma DSCR segmentation logic as src/segment.sql against a
 selected sample pool or an uploaded loan tape, live in the browser.
@@ -36,7 +36,7 @@ def screen_select():
     st.title("CRE Credit Risk")
     st.caption(
         "Runs the same pro-forma DSCR risk segmentation as the underlying analysis "
-        "repository — live, against any loan tape in the same schema."
+        "repository, live, against any loan tape in the same schema."
     )
 
     choice = st.radio(
@@ -48,7 +48,7 @@ def screen_select():
     if choice.startswith("Use the sample"):
         st.write(
             "Two 2017-vintage conduit CMBS deals, parsed from SEC EDGAR ABS-EE "
-            "filings — 49 active real-estate loans, $1.61B."
+            "filings: 49 active real-estate loans, $1.61B."
         )
         if st.button("Run analysis", type="primary"):
             df = load_sample_pool()
@@ -61,7 +61,7 @@ def screen_select():
                 st.error(str(e))
     else:
         st.write(
-            "Expects the same columns as the parsed loan-level data — see "
+            "Expects the same columns as the parsed loan-level data; see "
             "`data/processed/loans.csv` in the repository for the exact schema."
         )
         upload = st.file_uploader("Loan tape (CSV)", type=["csv"])
@@ -125,7 +125,7 @@ def screen_detail(scored: pd.DataFrame, pool_name: str):
 
     st.divider()
     st.subheader("Export")
-    st.write("Generates a findings memo from the current pool — recommendation, tier table, and the weakest Acute loans.")
+    st.write("Generates a findings memo from the current pool: recommendation, tier table, and the weakest Acute loans.")
     if st.button("Generate memo (PDF)"):
         pdf_bytes = generate_memo_pdf(scored, pool_name=pool_name)
         st.download_button(
