@@ -1,4 +1,4 @@
-# CRE Credit Risk — one command reproduces everything end to end.
+# CRE Credit Risk: one command reproduces everything end to end.
 # `make all` runs the full pipeline from a clean clone.
 
 VENV   := .venv

@@ -55,7 +55,7 @@ def validate(deal: dict, data: bytes, dest: str) -> int:
     if "<assetData" not in text:
         raise ValueError(
             f"{deal['deal_id']}: {dest} is not an ABS-EE asset-data XML "
-            f"(no <assetData> root). Got {len(data)} bytes — check the URL/accession."
+            f"(no <assetData> root). Got {len(data)} bytes; check the URL/accession."
         )
     loans = text.count("<assets>")
     expected = deal.get("expected_loans")

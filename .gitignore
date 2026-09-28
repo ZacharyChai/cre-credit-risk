@@ -1,4 +1,4 @@
-# Raw downloaded filings can be large — keep them out of git, they reproduce via `make fetch`
+# Raw downloaded filings can be large: keep them out of git, they reproduce via `make fetch`
 # (ABS-EE XML is fetched by a PINNED accession number -- an immutable EDGAR filing, so
 # re-fetching always returns identical bytes; excluding it from git is safe.)
 data/raw/*

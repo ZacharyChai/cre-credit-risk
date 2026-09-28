@@ -27,7 +27,7 @@ DB_PATH = "data/processed/loans.db"
 # Pinned to specific ABS-EE accessions (June 2026 filings) so `make all` reproduces
 # the SAME loan-level data every run. EDGAR filings are permanent, so a pinned
 # accession is the reproducible choice. To add a deal (e.g. GS 2017-GS5/GS8), append
-# a row here — the rest of the pipeline is deal-agnostic.
+# a row here: the rest of the pipeline is deal-agnostic.
 #
 # accession is the dashless form used in EDGAR archive paths.
 DEALS = [

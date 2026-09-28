@@ -6,7 +6,7 @@ Rate gap = estimated take-out rate today minus the loan's current coupon.
 
 Take-out rate = 10-year Treasury (matches these loans' original 10-year term) +
 an assumed CMBS conduit spread by property type (config.SPREAD_BPS_BY_PROPERTY_TYPE).
-The spread is a documented analyst assumption, not a live market feed — see
+The spread is a documented analyst assumption, not a live market feed; see
 config.py for sourcing notes.
 
 Reproducibility note: unlike the ABS-EE XML -- pinned by an immutable EDGAR

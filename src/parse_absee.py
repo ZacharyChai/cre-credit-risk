@@ -71,7 +71,7 @@ def _num(el, tag):
 
 
 def _first_num(el, tags):
-    """First non-None numeric among tags — implements a fallback chain."""
+    """First non-None numeric among tags: implements a fallback chain."""
     for t in tags:
         v = _num(el, t)
         if v is not None:
@@ -142,7 +142,7 @@ def parse_loan(deal, asset, all_assets):
         asset, ["reportPeriodInterestRatePercentage", "interestRateSecuritizationPercentage"]
     )
 
-    # DSCR — most-recent NCF preferred, then securitization NCF, then NOI variants.
+    # DSCR: most-recent NCF preferred, then securitization NCF, then NOI variants.
     dscr, dscr_src = _first_num(
         prop,
         [
@@ -171,7 +171,7 @@ def parse_loan(deal, asset, all_assets):
     ltv = (cur_bal / valuation) if (cur_bal and valuation) else None
     debt_yield = (noi / cur_bal) if (noi and cur_bal) else None
 
-    # A loan with no current balance has paid off / left the pool — not part of the
+    # A loan with no current balance has paid off / left the pool, not part of the
     # active maturity-wall analysis.
     loan_status = "paid_off" if not cur_bal else "active"
     # Pari-passu / A-note pieces: the trust holds only a SLICE of the balance, but the
