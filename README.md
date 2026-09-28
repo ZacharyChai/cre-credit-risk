@@ -6,8 +6,8 @@ in Elevated or Acute risk**, and it's concentrated less by property type than th
 market narrative would suggest: Office is the largest dollar exposure in the pool, but
 proportionally the *healthiest* of its major property types.
 
-**[Try the live app](https://cre-credit-risk.streamlit.app/)**
-— run the same segmentation against the sample pool or your own loan tape.
+**[Try the live app](https://cre-credit-risk.streamlit.app/)**:
+run the same segmentation against the sample pool or your own loan tape.
 Full writeup: [`analysis/findings.md`](analysis/findings.md).
 
 ---
@@ -20,12 +20,12 @@ elevated and unevenly distributed across property types. Maturity risk, not
 operational failure, is driving new distress.
 
 This project asks: within a real CMBS loan pool, where is refinance risk actually
-concentrated, what drives it, and what should a lender or investor do about it —
+concentrated, what drives it, and what should a lender or investor do about it,
 answered with loan-level data, not portfolio-level commentary.
 
 ## Data
 
-Loan-level detail comes from **SEC EDGAR ABS-EE filings** — under Regulation AB II,
+Loan-level detail comes from **SEC EDGAR ABS-EE filings**: under Regulation AB II,
 CMBS issuers file loan-level asset data as a structured XML exhibit (`EX-102`),
 covering current balance, coupon, maturity, property type and location, NOI, DSCR,
 LTV, and occupancy for every loan in the trust.
@@ -45,11 +45,11 @@ series plus a property-type CMBS spread assumption, documented in
 
 ## Method
 
-Every loan is scored on a **pro-forma refinance DSCR** — its reported DSCR rescaled by
-the ratio of its current coupon to an estimated takeout rate — and tiered into
+Every loan is scored on a **pro-forma refinance DSCR** (its reported DSCR rescaled by
+the ratio of its current coupon to an estimated takeout rate) and tiered into
 Low / Watch / Elevated / Acute based on whether it can still cover debt service at
 today's rate, with an escalation for high leverage or Office/Lodging exposure. The
-full rule is stated in [`src/segment.sql`](src/segment.sql), not buried in a model —
+full rule is stated in [`src/segment.sql`](src/segment.sql), not buried in a model:
 segmentation logic should be auditable by a credit reader, not a black box.
 
 ## Key finding
@@ -62,22 +62,22 @@ segmentation logic should be auditable by a credit reader, not a black box.
 | Low | 9 | $198.5M | 12.3% |
 
 Office carries 61.3% of pool balance but only 40.6% of its own balance sits in
-Elevated/Acute — lower than Retail (53.5%), Mixed Use (58.1%), or Multifamily
+Elevated/Acute, lower than Retail (53.5%), Mixed Use (58.1%), or Multifamily
 (62.0%). Office is the largest dollar exposure to the wall, not the worst-behaved
 property type in this pool. It's still internally bifurcated, though: pro-forma DSCR
 within Office loans alone spans 0.85x to 2.56x, and no office loan clears into the
 Low tier.
 
-See [`analysis/findings.md`](analysis/findings.md) for the full memo — recommendation,
+See [`analysis/findings.md`](analysis/findings.md) for the full memo: recommendation,
 driver analysis, and named limitations.
 
 ## Interactive app
 
-**[Live app](https://cre-credit-risk.streamlit.app/)** — the
-same pro-forma DSCR segmentation, runnable live: pick the sample pool or upload a loan
+**[Live app](https://cre-credit-risk.streamlit.app/)** runs the
+same pro-forma DSCR segmentation live: pick the sample pool or upload a loan
 tape in the same schema, and get the tier breakdown, DSCR distribution, maturity wall
 chart, a sortable loan-level table, and a downloadable memo (PDF) generated from
-whatever data is loaded — not a static writeup.
+whatever data is loaded, not a static writeup.
 
 To run it locally instead:
 
@@ -122,8 +122,8 @@ cre-credit-risk/
 make all
 ```
 
-Reproduces the full analysis pipeline from a clean clone — fetch, parse, load,
-benchmark, segment, and driver analysis with charts — using a local virtualenv and
+Reproduces the full analysis pipeline from a clean clone (fetch, parse, load,
+benchmark, segment, and driver analysis with charts) using a local virtualenv and
 SQLite. No cloud, no external services beyond the public data sources above.
 
 ## Limitations
