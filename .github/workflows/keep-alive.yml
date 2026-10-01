@@ -21,7 +21,7 @@ concurrency:
 jobs:
   visit:
     runs-on: ubuntu-latest
-    timeout-minutes: 12
+    timeout-minutes: 14
     steps:
       - uses: actions/setup-node@v4
         with:
@@ -44,24 +44,40 @@ jobs:
           try {
             await page.goto(url, { waitUntil: "domcontentloaded", timeout: 90_000 });
 
-            const wake = page.getByRole("button", { name: /get this app back up/i });
-            if (await wake.isVisible({ timeout: 10_000 }).catch(() => false)) {
-              console.log("app was asleep; pressing the wake button");
-              await wake.click();
+            // The sleep screen's wake button lives in a nested frame, not the top-level
+            // page, same as the app content once it boots. page.getByRole only searches
+            // the top-level page, so it silently never matched: the click never fired,
+            // and every run since this was added has timed out waiting for an app that
+            // was never actually told to wake up. Search every frame instead, the same
+            // way the render-check loop below already does.
+            let clicked = false;
+            for (const frame of page.frames()) {
+              const wake = frame.getByRole("button", { name: /get this app back up/i });
+              if (await wake.isVisible({ timeout: 5_000 }).catch(() => false)) {
+                console.log(`app was asleep (wake button found in frame ${frame.url()}); pressing it`);
+                await wake.click();
+                clicked = true;
+                break;
+              }
             }
+            if (!clicked) console.log("no wake button found; app may already be awake");
 
             // The app title comes from st.title("CRE Credit Risk"); look for it in the
-            // page or any frame for up to four minutes (a cold boot can take a while).
-            const deadline = Date.now() + 240_000;
+            // page or any frame for up to five minutes (a cold boot that has to install
+            // pandas, matplotlib, reportlab and plotly can take a while).
+            const deadline = Date.now() + 300_000;
             let rendered = false;
             while (!rendered && Date.now() < deadline) {
               for (const frame of page.frames()) {
                 const hits = await frame.locator("text=CRE Credit Risk").count().catch(() => 0);
                 if (hits > 0) { rendered = true; break; }
               }
-              if (!rendered) await page.waitForTimeout(5_000);
+              if (!rendered) {
+                console.log(`still waiting, ${Math.round((deadline - Date.now()) / 1000)}s left`);
+                await page.waitForTimeout(10_000);
+              }
             }
-            if (!rendered) throw new Error("app did not render within four minutes");
+            if (!rendered) throw new Error("app did not render within five minutes");
 
             // Hold the session open briefly so the visit registers as viewer traffic.
             await page.waitForTimeout(20_000);
