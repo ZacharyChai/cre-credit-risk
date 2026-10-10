@@ -12,7 +12,8 @@ on:
     - cron: "23 */6 * * *"
   workflow_dispatch:
 
-permissions: {}
+permissions:
+  contents: read
 
 concurrency:
   group: keep-alive
@@ -23,6 +24,11 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 14
     steps:
+      # The visit script lives in the repo, so the runner needs a checkout to run it.
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+
       - uses: actions/setup-node@v4
         with:
           node-version: "20"
