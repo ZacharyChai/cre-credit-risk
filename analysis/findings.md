@@ -5,10 +5,11 @@ $1,614.7M, as of the June 2026 servicer reporting period.*
 
 ## 1. Recommendation
 
-**Refer three loans to special servicing now, not at maturity.** 90 Fifth Avenue and
-One West 34th Street (both Mixed Use, New York, GS7) and Sienna Bay (Multifamily,
-Florida) are cash-flow distressed *today* (DSCR of 0.14x, 0.63x, and 1.11x), with no
-dependence on where rates land at refinance. Waiting for the 2027 maturity date to act
+**Refer two loans to special servicing now, not at maturity.** 90 Fifth Avenue and
+One West 34th Street (both Mixed Use, New York, GS7) are cash-flow distressed *today*
+(DSCR of 0.14x and 0.63x), with no dependence on where rates land at refinance. A third,
+Sienna Bay (Multifamily, Florida, 1.11x), still covers debt service but sits just above
+the 1.10x watchlist trigger; it belongs on the watchlist, not in a workout. Waiting for the 2027 maturity date to act
 only narrows the workout options. Beyond that, **do not treat Office as the exposure to
 cut.** At 61.3% of pool balance it's the largest dollar exposure to the wall, but only
 40.6% of its own balance sits in Elevated/Acute risk, a *lower* rate than Retail
@@ -76,14 +77,17 @@ cash-flow cushion and property type, not deal size. Vintage is uninformative her
 47 of 49 active loans originated in 2017, so there's no earlier/later cohort to
 compare against.
 
-**Three loans are distressed independent of the rate environment.** 90 Fifth Avenue
-(DSCR 0.14x), One West 34th Street (0.63x), and Sienna Bay (1.11x today, versus a pool
-median of 1.60x) would be troubled at any refinance rate; these are operating
-problems the maturity wall will surface, not create.
+**Two loans are distressed independent of the rate environment.** 90 Fifth Avenue
+(DSCR 0.14x) and One West 34th Street (0.63x) would be troubled at any refinance rate;
+these are operating problems the maturity wall will surface, not create. Sienna Bay
+(1.11x today, versus a pool median of 1.60x) is the next one to watch: thin, but still
+covering debt service.
 
 ## 5. What to do
 
-1. **Immediate workout referral** for the three loans above ($78.6M combined): their
+1. **Immediate workout referral** for the two loans above ($57.0M combined in GS7).
+   One West 34th Street also has a $40.0M pari passu piece in GS6 that still reports
+   2017 underwriting DSCR, so the same property carries $97.0M across both deals. Their
    distress predates the rate environment and won't resolve by waiting for 2027.
 2. **Proactive borrower outreach on the 18 Acute loans ($507.1M)**, starting now rather
    than at the maturity date. Options to negotiate ahead of default: partial paydowns
